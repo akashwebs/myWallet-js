@@ -11,6 +11,12 @@ function getInputValue(idName) {
     return inputValue;
 }
 
+function getTextValue(idName) {
+    const inputField = document.getElementById(idName);
+    const inputValue = parseInt(inputField.innerText);
+    return inputValue;
+}
+
 
 // total expenses calculation 
 function totalExpenses() {
@@ -25,15 +31,37 @@ function totalExpenses() {
 document.getElementById('calculate-button').addEventListener('click', function() {
 
 
+        const incomeAmountValue = getInputValue('income');
+        const totalIncomeExpenses = totalExpenses();
+        const totalExpensesCost = elementesId('total-expenses');
+        const totalBalance = elementesId('total-balance');
+
+        // display amount of total expenses
+        totalExpensesCost.innerText = totalIncomeExpenses;
+        // display total balance
+        totalBalance.innerText = incomeAmountValue - totalIncomeExpenses;
+
+
+    })
+    // event handeler for save button for saving amount
+elementesId('save-button').addEventListener('click', function() {
+    // total income
     const incomeAmountValue = getInputValue('income');
-    const totalIncomeExpenses = totalExpenses();
-    const totalExpensesCost = elementesId('total-expenses');
-    const totalBalance = elementesId('total-balance');
+    // input percent of  saving amount 
+    const savingAmountPercent = getInputValue('percent-input');
+    const calculatePercent = (incomeAmountValue / 100) * savingAmountPercent;
+    // saving amount display value
+    const totalSavingAmount = elementesId('saving-amount');
+    totalSavingAmount.innerText = calculatePercent;
 
-    // display amount of total expenses
-    totalExpensesCost.innerText = totalIncomeExpenses;
-    // display total balance
-    totalBalance.innerText = incomeAmountValue - totalIncomeExpenses;
-
-
+    remainingBalance();
 })
+
+// remaining Balance
+function remainingBalance() {
+    const remainingBalance = elementesId('remaining-balance');
+    const mainBalance = getTextValue('total-balance');
+    const savingAmount = getTextValue('saving-amount');
+    const totalRemainingBalance = mainBalance - savingAmount;
+    remainingBalance.innerText = totalRemainingBalance;
+}
