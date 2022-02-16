@@ -74,10 +74,12 @@ const allInputTags = document.getElementsByTagName('input');
 for (const tag of allInputTags) {
     tag.addEventListener('keyup', function(e) {
         const value = e.target.value;
+        const error = elementesId('error-alert');
         if (isNaN(value)) {
-            console.log('is not a number');
+            error.style.top = "46%";
         } else {
             console.log('is number')
+            error.style.top = "-46%";
         }
     })
 }
