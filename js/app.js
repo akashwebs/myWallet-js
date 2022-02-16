@@ -8,6 +8,7 @@ function elementesId(idName) {
 function getInputValue(idName) {
     const inputField = document.getElementById(idName);
     const inputValue = parseInt(inputField.value);
+    inputField.value = '';
     return inputValue;
 }
 
@@ -46,9 +47,12 @@ document.getElementById('calculate-button').addEventListener('click', function()
     // event handeler for save button for saving amount
 elementesId('save-button').addEventListener('click', function() {
     // total income
-    const incomeAmountValue = getInputValue('income');
+    let incomeAmountValue = getInputValue('income');
     // input percent of  saving amount 
     const savingAmountPercent = getInputValue('percent-input');
+    if (isNaN(incomeAmountValue)) {
+        incomeAmountValue = getTextValue('total-balance') + getTextValue('total-expenses');
+    }
     const calculatePercent = (incomeAmountValue / 100) * savingAmountPercent;
     // saving amount display value
     const totalSavingAmount = elementesId('saving-amount');
@@ -64,4 +68,16 @@ function remainingBalance() {
     const savingAmount = getTextValue('saving-amount');
     const totalRemainingBalance = mainBalance - savingAmount;
     remainingBalance.innerText = totalRemainingBalance;
+}
+
+const allInputTags = document.getElementsByTagName('input');
+for (const tag of allInputTags) {
+    tag.addEventListener('keyup', function(e) {
+        const value = e.target.value;
+        if (isNaN(value)) {
+            console.log('is not a number');
+        } else {
+            console.log('is number')
+        }
+    })
 }
