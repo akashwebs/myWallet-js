@@ -80,6 +80,8 @@ elementesId('save-button').addEventListener('click', function() {
     const totalSavingAmount = elementesId('saving-amount');
     totalSavingAmount.innerText = calculatePercent;
 
+
+
     // remaining Balance
     function remainingBalance() {
 
@@ -97,11 +99,15 @@ elementesId('save-button').addEventListener('click', function() {
             remainingBalance.style.color = 'red';
         }
         remainingBalance.innerText = totalRemainingBalance;
-
+        // error handaling for save is empty
+        if (isNaN(savingAmountPercent)) {
+            totalSavingAmount.innerText = '0';
+            remainingBalance.innerText = '0';
+        }
     }
 
 
-    remainingBalance();
+
 })
 
 // all input error handilg if input is not number
