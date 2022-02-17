@@ -131,7 +131,7 @@ for (const tag of allInputTags) {
             elementesId('messege').innerText = 'please enter only number';
         } else {
             e.target.style.border = '0px solid red'
-            error.style.top = "-46%";
+            error.style.top = "-1500px";
         }
     })
 }
