@@ -128,6 +128,7 @@ for (const tag of allInputTags) {
         if (isNaN(value)) {
             e.target.style.border = '2px solid red'
             error.style.top = "46%";
+            elementesId('messege').innerText = 'please enter only number';
         } else {
             e.target.style.border = '0px solid red'
             error.style.top = "-46%";
