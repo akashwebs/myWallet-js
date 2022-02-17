@@ -32,41 +32,46 @@ function totalExpenses() {
 document.getElementById('calculate-button').addEventListener('click', function() {
 
 
-        const incomeAmountValue = getInputValue('income');
-        const totalIncomeExpenses = totalExpenses();
-        const totalExpensesCost = elementesId('total-expenses');
-        const totalBalance = elementesId('total-balance');
-        const totalMainBalance = incomeAmountValue - totalIncomeExpenses;
-        // error handle for total expenses anad balance output if not a number 
-        if (isNaN(totalIncomeExpenses) || isNaN(incomeAmountValue)) {
-            totalExpensesCost.innerText = '0';
-            totalBalance.innerText = '0';
-            elementesId('error-alert').style.top = '46%';
-            elementesId('messege').innerText = 'Your input is wrong!!'
+    const incomeAmountValue = getInputValue('income');
+    const totalIncomeExpenses = totalExpenses();
+    const totalExpensesCost = elementesId('total-expenses');
+    const totalBalance = elementesId('total-balance');
+    const totalMainBalance = incomeAmountValue - totalIncomeExpenses;
+    // error handle for total expenses anad balance output if not a number 
+    if (isNaN(totalIncomeExpenses) || isNaN(incomeAmountValue)) {
+        totalExpensesCost.innerText = '0';
+        totalBalance.innerText = '0';
+        elementesId('error-alert').style.top = '46%';
+        elementesId('messege').innerText = 'Your input is wrong!!'
 
+    } else {
+        elementesId('error-alert').style.top = '-100%';
+        if (totalMainBalance < 0) {
+            elementesId('total-balance').parentNode.style.color = 'red';
+            elementesId('error-alert').style.top = "46%";
+            elementesId('messege').innerText = "your main balance is low, you need more earning!";
         } else {
-            elementesId('error-alert').style.top = '-100%';
-            if (totalMainBalance < totalIncomeExpenses) {
-                elementesId('total-balance').parentNode.style.color = 'red';
-                elementesId('error-alert').style.top = "46%";
-                elementesId('messege').innerText = "your main balance is low, you need more earning!";
-            } else {
 
-                elementesId('total-balance').parentNode.style.color = '#000';
-            }
-            totalExpensesCost.innerText = totalIncomeExpenses;
-            // display total balance
-            totalBalance.innerText = totalMainBalance;
+            elementesId('total-balance').parentNode.style.color = '#000';
         }
+        totalExpensesCost.innerText = totalIncomeExpenses;
+        // display total balance
+        totalBalance.innerText = totalMainBalance;
+    }
 
 
-    })
-    // event handeler for save button for saving amount
+})
+
+
+
+
+// event handeler for save button for saving amount
 elementesId('save-button').addEventListener('click', function() {
     // total income
     let incomeAmountValue = getInputValue('income');
     // input percent of  saving amount 
     const savingAmountPercent = getInputValue('percent-input');
+
     if (isNaN(incomeAmountValue)) {
         incomeAmountValue = getTextValue('total-balance') + getTextValue('total-expenses');
     }
@@ -75,18 +80,31 @@ elementesId('save-button').addEventListener('click', function() {
     const totalSavingAmount = elementesId('saving-amount');
     totalSavingAmount.innerText = calculatePercent;
 
+    // remaining Balance
+    function remainingBalance() {
+
+        const remainingBalance = elementesId('remaining-balance');
+        const mainBalance = getTextValue('total-balance');
+        const savingAmount = getTextValue('saving-amount');
+        let totalRemainingBalance = mainBalance - savingAmount;
+
+        // if no expenses 
+        if (getTextValue('total-expenses') == 0) {
+            totalRemainingBalance = incomeAmountValue - calculatePercent;
+        }
+        //error handilg if remaining blance low
+        if (totalRemainingBalance < 0) {
+            remainingBalance.style.color = 'red';
+        }
+        remainingBalance.innerText = totalRemainingBalance;
+
+    }
+
+
     remainingBalance();
 })
 
-// remaining Balance
-function remainingBalance() {
-    const remainingBalance = elementesId('remaining-balance');
-    const mainBalance = getTextValue('total-balance');
-    const savingAmount = getTextValue('saving-amount');
-    const totalRemainingBalance = mainBalance - savingAmount;
-    remainingBalance.innerText = totalRemainingBalance;
-}
-
+// all input error handilg if input is not number
 const allInputTags = document.getElementsByTagName('input');
 for (const tag of allInputTags) {
     tag.addEventListener('keyup', function(e) {
