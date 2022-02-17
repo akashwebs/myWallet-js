@@ -7,14 +7,14 @@ function elementesId(idName) {
 
 function getInputValue(idName) {
     const inputField = document.getElementById(idName);
-    const inputValue = parseInt(inputField.value);
+    const inputValue = parseFloat(inputField.value);
     inputField.value = '';
     return inputValue;
 }
 
 function getTextValue(idName) {
     const inputField = document.getElementById(idName);
-    const inputValue = parseInt(inputField.innerText);
+    const inputValue = parseFloat(inputField.innerText);
     return inputValue;
 }
 
