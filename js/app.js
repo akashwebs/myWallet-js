@@ -101,7 +101,9 @@ elementesId('save-button').addEventListener('click', function() {
         }
         //error handilg if remaining blance low
         if (totalRemainingBalance < 0) {
-            remainingBalance.style.color = 'red';
+
+            totalRemainingBalance = '0';
+
         }
         remainingBalance.innerText = totalRemainingBalance;
         if (isNaN(savingAmountPercent)) {
