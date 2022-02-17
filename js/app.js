@@ -36,6 +36,7 @@ document.getElementById('calculate-button').addEventListener('click', function()
         const totalIncomeExpenses = totalExpenses();
         const totalExpensesCost = elementesId('total-expenses');
         const totalBalance = elementesId('total-balance');
+        const totalMainBalance = incomeAmountValue - totalIncomeExpenses;
         // error handle for total expenses anad balance output if not a number 
         if (isNaN(totalIncomeExpenses) || isNaN(incomeAmountValue)) {
             totalExpensesCost.innerText = '0';
@@ -45,11 +46,17 @@ document.getElementById('calculate-button').addEventListener('click', function()
 
         } else {
             elementesId('error-alert').style.top = '-100%';
+            if (totalMainBalance < totalIncomeExpenses) {
+                elementesId('total-balance').parentNode.style.color = 'red';
+                elementesId('error-alert').style.top = "46%";
+                elementesId('messege').innerText = "your main balance is low, you need more earning!";
+            } else {
 
-            // display amount of total expenses
+                elementesId('total-balance').parentNode.style.color = '#000';
+            }
             totalExpensesCost.innerText = totalIncomeExpenses;
             // display total balance
-            totalBalance.innerText = incomeAmountValue - totalIncomeExpenses;
+            totalBalance.innerText = totalMainBalance;
         }
 
 
