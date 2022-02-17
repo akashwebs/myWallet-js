@@ -79,8 +79,12 @@ elementesId('save-button').addEventListener('click', function() {
     // saving amount display value
     const totalSavingAmount = elementesId('saving-amount');
     totalSavingAmount.innerText = calculatePercent;
-
-
+    if (getTextValue('total-balance') < 0) {
+        elementesId('error-alert').style.top = "46%"
+        elementesId('messege').innerText = 'dont enough money';
+        elementesId('saving-amount').innerText = '0';
+        elementesId('remaining-balance').innerText = '0';
+    }
 
     // remaining Balance
     function remainingBalance() {
@@ -99,16 +103,20 @@ elementesId('save-button').addEventListener('click', function() {
             remainingBalance.style.color = 'red';
         }
         remainingBalance.innerText = totalRemainingBalance;
-        // error handaling for save is empty
         if (isNaN(savingAmountPercent)) {
             totalSavingAmount.innerText = '0';
             remainingBalance.innerText = '0';
+            elementesId('error-alert').style.top = "46%"
+            elementesId('messege').innerText = 'wrong input';
         }
     }
 
 
+    remainingBalance();
 
 })
+
+
 
 // all input error handilg if input is not number
 const allInputTags = document.getElementsByTagName('input');
