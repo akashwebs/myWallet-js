@@ -36,19 +36,21 @@ document.getElementById('calculate-button').addEventListener('click', function()
         const totalIncomeExpenses = totalExpenses();
         const totalExpensesCost = elementesId('total-expenses');
         const totalBalance = elementesId('total-balance');
-        if (isNaN(totalExpensesCost) == true || isNaN(totalBalance) == true) {
+        // error handle for total expenses anad balance output if not a number 
+        if (isNaN(totalIncomeExpenses) || isNaN(incomeAmountValue)) {
             totalExpensesCost.innerText = '0';
             totalBalance.innerText = '0';
             elementesId('error-alert').style.top = '46%';
-            elementesId('messege').innerText = ''
+            elementesId('messege').innerText = 'Your input is wrong!!'
+
         } else {
             elementesId('error-alert').style.top = '-100%';
+
             // display amount of total expenses
             totalExpensesCost.innerText = totalIncomeExpenses;
             // display total balance
             totalBalance.innerText = incomeAmountValue - totalIncomeExpenses;
         }
-
 
 
     })
@@ -84,8 +86,10 @@ for (const tag of allInputTags) {
         const value = e.target.value;
         const error = elementesId('error-alert');
         if (isNaN(value)) {
+            e.target.style.border = '2px solid red'
             error.style.top = "46%";
         } else {
+            e.target.style.border = '0px solid red'
             error.style.top = "-46%";
         }
     })
