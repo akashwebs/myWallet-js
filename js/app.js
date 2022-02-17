@@ -46,6 +46,7 @@ document.getElementById('calculate-button').addEventListener('click', function()
 
     } else {
         elementesId('error-alert').style.top = '-100%';
+        // error handeling if over expenses
         if (totalMainBalance < 0) {
             elementesId('total-balance').parentNode.style.color = 'red';
             elementesId('error-alert').style.top = "46%";
