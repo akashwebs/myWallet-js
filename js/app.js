@@ -103,7 +103,12 @@ elementesId('save-button').addEventListener('click', function() {
         if (totalRemainingBalance < 0) {
 
             totalRemainingBalance = '0';
-
+        }
+        // error hanaling if over saving
+        if (totalRemainingBalance == 0) {
+            elementesId('saving-amount').innerText = '0';
+            elementesId('error-alert').style.top = "46%"
+            elementesId('messege').innerText = 'dont enough money';
         }
         remainingBalance.innerText = totalRemainingBalance;
         if (isNaN(savingAmountPercent)) {
